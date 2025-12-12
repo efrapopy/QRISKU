@@ -513,15 +513,3 @@ input[type="number"]:focus {
   }
 }
  
-/* Gunakan Flexbox untuk tata letak responsif */
-.container {
-  display: flex;
-  flex-direction: column;  /* Mengatur kolom di mobile */
-  align-items: center;  /* Menyelaraskan elemen di tengah */
-}
-
-@media (min-width: 768px) {
-  .container {
-    flex-direction: row;  /* Menyusun elemen dalam baris untuk desktop */
-  }
-}
