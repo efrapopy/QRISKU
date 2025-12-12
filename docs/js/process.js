@@ -89,11 +89,25 @@ clearLocalBtn.addEventListener("click", () => {
 downloadBtn.addEventListener("click", () => {
   if (!canvasImageURL) return;
 
+  // Set canvas width and height to higher resolution for better quality
+  const highResCanvas = document.createElement("canvas");
+  const highResCtx = highResCanvas.getContext("2d");
+
+  // Set high resolution (e.g., 1000x1000)
+  highResCanvas.width = 1000;
+  highResCanvas.height = 1000;
+
+  // Draw the QR code to the high-resolution canvas
+  highResCtx.drawImage(canvasPreview, 0, 0, highResCanvas.width, highResCanvas.height);
+
+  const highResImageURL = highResCanvas.toDataURL("image/png");
+
   const link = document.createElement("a");
-  link.href = canvasImageURL;
-  link.download = "QRIS_" + finalAmount + ".png";
-  link.click();
+  link.href = highResImageURL;
+  link.download = "QRIS_" + finalAmount + ".png";  // Name the downloaded file
+  link.click();  // Automatically click the download link
 });
+
 
 // =========================
 // DRAW QR TO CANVAS
@@ -101,35 +115,32 @@ downloadBtn.addEventListener("click", () => {
 async function drawQR(url) {
   const ctx = canvasPreview.getContext("2d");
 
-  ctx.fillStyle = "#ffffff";
+  // Clear previous content of canvas
+  ctx.clearRect(0, 0, canvasPreview.width, canvasPreview.height);
+
+  // Set the canvas background to white
+  ctx.fillStyle = "#ffffff";  // White background color for the card
   ctx.fillRect(0, 0, canvasPreview.width, canvasPreview.height);
 
+  // Set border color and width (white border)
+  ctx.strokeStyle = "#ffffff";  // White border color
+  ctx.lineWidth = 4;  // Set border width to 4px
+  ctx.strokeRect(0, 0, canvasPreview.width, canvasPreview.height);  // Draw border
+
+  // Set the QR code size to a larger value (e.g., 300px)
+  const qrSize = 300;  // Larger QR size for better scanning
+
   const img = new Image();
-  img.crossOrigin = "anonymous";
+  img.crossOrigin = "anonymous";  // Allow cross-origin images
 
   return new Promise(resolve => {
     img.onload = () => {
-      const qrSize = 300;
-      const x = (canvasPreview.width - qrSize) / 2;
+      const x = (canvasPreview.width - qrSize) / 2;  // Center QR code horizontally
+      const y = (canvasPreview.height - qrSize) / 2;  // Center QR code vertically
 
-      ctx.drawImage(img, x, 40, qrSize, qrSize);
+      ctx.drawImage(img, x, y, qrSize, qrSize);  // Draw the QR image on canvas
 
-      // Label amount
-      ctx.fillStyle = "#111";
-      ctx.font = "700 18px Inter, sans-serif";
-      ctx.textAlign = "center";
-
-      // Yellow box
-      const rectW = 240;
-      const rectH = 34;
-      const rectX = (canvasPreview.width - rectW) / 2;
-      const rectY = 0;
-
-      roundRect(ctx, rectX, rectY, rectW, rectH, 8, true, false, "#ffd400");
-
-      ctx.fillStyle = "#111";
-      ctx.fillText("Rp " + finalAmount.toLocaleString("id-ID"), canvasPreview.width / 2, 24);
-
+      // Generate the image URL from canvas for download
       canvasImageURL = canvasPreview.toDataURL("image/png");
 
       resolve();
@@ -140,9 +151,10 @@ async function drawQR(url) {
       resolve();
     };
 
-    img.src = url;
+    img.src = url;  // Set the source for the QR image
   });
 }
+
 
 // Rounded rectangle helper
 function roundRect(ctx, x, y, w, h, r, fill, stroke, color) {
