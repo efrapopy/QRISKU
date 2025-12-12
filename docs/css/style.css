@@ -493,6 +493,29 @@ input[type="number"]:focus {
   }
 }
 
+.qr-wrapper {
+  width: 100%;
+  max-width: 400px; /* ukuran maksimal */
+  aspect-ratio: 1 / 1; /* kotak fix */
+  background: white;
+  border-radius: 12px;
+  padding: 10px;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0 auto;
+}
+
+#canvasPreview {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important; /* mencegah gepeng */
+}
+
+
 
 
 
