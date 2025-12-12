@@ -75,7 +75,7 @@ body.bg{
 }
 
 .brand{
-  font-size:30px;
+  font-size:32px;
   font-weight:800;
   color:var(--text-strong);
   letter-spacing:0.3px;
@@ -492,4 +492,5 @@ input[type="number"]:focus {
     opacity: 0;
   }
 }
+
 
