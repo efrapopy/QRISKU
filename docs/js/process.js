@@ -186,3 +186,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+ // =========================
+  // Validasi Input Nominal
+  // =========================
+  // Update input value
+  
+  amountInput.value = value;
+
+  // Cek apakah nominal lebih dari 10.000.000 dan tampilkan pesan
+  if (parseInt(value) > 10000000) {
+    showPopup("Nominal tidak boleh lebih dari 10.000.000.", () => {
+      // Redirect setelah popup ditutup, agar user bisa memperbaiki input
+      location.href = "process.html";
+    });
+    genBtn.disabled = true; // Nonaktifkan tombol Generate
+  } else {
+    genBtn.disabled = false; // Aktifkan tombol Generate
+  }
+});
+
+
