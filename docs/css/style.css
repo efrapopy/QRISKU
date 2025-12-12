@@ -492,24 +492,3 @@ input[type="number"]:focus {
     opacity: 0;
   }
 }
-
-/* Untuk perangkat dengan lebar layar maksimal 768px (mobile) */
-@media (max-width: 768px) {
-  .btn {
-    width: 100%;  /* Tombol akan memanfaatkan 100% lebar layar */
-    padding: 15px;  /* Menambah padding agar tombol lebih besar di mobile */
-  }
-
-  /* Responsif lainnya */
-  header, footer {
-    text-align: center; /* Menyesuaikan teks agar lebih rapi di mobile */
-  }
-}
-
-/* Untuk perangkat dengan lebar layar lebih besar dari 768px (desktop) */
-@media (min-width: 769px) {
-  .btn {
-    width: auto;  /* Tombol kembali ke ukuran normal */
-  }
-}
- 
