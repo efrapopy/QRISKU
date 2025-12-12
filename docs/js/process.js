@@ -113,34 +113,43 @@ downloadBtn.addEventListener("click", () => {
 // DRAW QR TO CANVAS
 // =========================
 async function drawQR(url) {
+  // Selalu set canvas jadi square
+  canvasPreview.width = 400;
+  canvasPreview.height = 460;
+
   const ctx = canvasPreview.getContext("2d");
 
-  // Clear previous content of canvas
-  ctx.clearRect(0, 0, canvasPreview.width, canvasPreview.height);
-
-  // Set the canvas background to white
-  ctx.fillStyle = "#ffffff";  // White background color for the card
+  ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, canvasPreview.width, canvasPreview.height);
 
-  // Set border color and width (white border)
-  ctx.strokeStyle = "#ffffff";  // White border color
-  ctx.lineWidth = 4;  // Set border width to 4px
-  ctx.strokeRect(0, 0, canvasPreview.width, canvasPreview.height);  // Draw border
-
-  // Set the QR code size to a larger value (e.g., 300px)
-  const qrSize = 300;  // Larger QR size for better scanning
-
   const img = new Image();
-  img.crossOrigin = "anonymous";  // Allow cross-origin images
+  img.crossOrigin = "anonymous";
 
   return new Promise(resolve => {
     img.onload = () => {
-      const x = (canvasPreview.width - qrSize) / 2;  // Center QR code horizontally
-      const y = (canvasPreview.height - qrSize) / 2;  // Center QR code vertically
 
-      ctx.drawImage(img, x, y, qrSize, qrSize);  // Draw the QR image on canvas
+      // QR square — tidak akan gepeng
+      const qrSize = 340;
+      const x = (canvasPreview.width - qrSize) / 2;
 
-      // Generate the image URL from canvas for download
+      ctx.drawImage(img, x, 60, qrSize, qrSize);
+
+      // Label amount
+      ctx.fillStyle = "#111";
+      ctx.font = "700 20px Inter, sans-serif";
+      ctx.textAlign = "center";
+
+      // Yellow box
+      const rectW = 260;
+      const rectH = 40;
+      const rectX = (canvasPreview.width - rectW) / 2;
+      const rectY = 10;
+
+      roundRect(ctx, rectX, rectY, rectW, rectH, 10, true, false, "#ffd400");
+
+      ctx.fillStyle = "#111";
+      ctx.fillText("Rp " + finalAmount.toLocaleString("id-ID"), canvasPreview.width / 2, 38);
+
       canvasImageURL = canvasPreview.toDataURL("image/png");
 
       resolve();
@@ -151,7 +160,7 @@ async function drawQR(url) {
       resolve();
     };
 
-    img.src = url;  // Set the source for the QR image
+    img.src = url;
   });
 }
 
