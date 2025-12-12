@@ -170,22 +170,48 @@ document.addEventListener("DOMContentLoaded", () => {
     const action = btn.dataset.action;
 
     btn.addEventListener("click", () => {
+      let current = amountInput.value;
+
+      // CLEAR
       if (action === "clear") {
         amountInput.value = "";
+        genBtn.disabled = false;
         return;
       }
 
+      // DELETE
       if (action === "del") {
-        amountInput.value = amountInput.value.slice(0, -1);
+        amountInput.value = current.slice(0, -1);
+        genBtn.disabled = false;
         return;
       }
 
+      // INPUT ANGKA
       if (val !== undefined) {
-        amountInput.value += val;
+
+        // Cegah lebih dari 8 digit
+        if (current.length >= 8) {
+          showPopup("Maksimal 8 digit angka.");
+          return;
+        }
+
+        // Gabungkan nilai baru
+        let newValue = current + val;
+
+        // Cegah lebih dari 10 juta
+        if (parseInt(newValue) > 10000000) {
+          showPopup("Nominal tidak boleh lebih dari 10.000.000.");
+          genBtn.disabled = true;
+          return;
+        }
+
+        amountInput.value = newValue;
+        genBtn.disabled = false;
       }
     });
   });
 });
+
 
 
 // =========================
@@ -194,24 +220,20 @@ document.addEventListener("DOMContentLoaded", () => {
 amountInput.addEventListener("input", () => {
   let value = amountInput.value;
 
-  // Hapus karakter non-angka
+  // Hapus non-angka
   value = value.replace(/\D/g, "");
 
-  // Batas maksimal 8 digit
+  // Batas 8 digit
   if (value.length > 8) {
     value = value.slice(0, 8);
-    showPopup("Maksimal 8 digit angka.", () => {
-      location.href = "process.html";
-    });
+    showPopup("Maksimal 8 digit angka.");
   }
 
   amountInput.value = value;
 
-  // Tidak boleh lebih dari 10 juta
+  // Batas 10 juta
   if (parseInt(value) > 10000000) {
-    showPopup("Nominal tidak boleh lebih dari 10.000.000.", () => {
-      location.href = "process.html";
-    });
+    showPopup("Nominal tidak boleh lebih dari 10.000.000.");
     genBtn.disabled = true;
   } else {
     genBtn.disabled = false;
