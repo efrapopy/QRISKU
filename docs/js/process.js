@@ -162,14 +162,14 @@ function roundRect(ctx, x, y, w, h, r, fill, stroke, color) {
 }
 
 // =========================
-// KEYPAD
+// KEYPAD (VALIDASI FULL)
 // =========================
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".keypad button").forEach(btn => {
-    const val = btn.dataset.val;
-    const action = btn.dataset.action;
-
     btn.addEventListener("click", () => {
+      const val = btn.dataset.val;
+      const action = btn.dataset.action;
+
       let current = amountInput.value;
 
       // CLEAR
@@ -189,22 +189,24 @@ document.addEventListener("DOMContentLoaded", () => {
       // INPUT ANGKA
       if (val !== undefined) {
 
-        // Cegah lebih dari 8 digit
+        // CEGAH > 8 DIGIT (langsung tolak)
         if (current.length >= 8) {
           showPopup("Maksimal 8 digit angka.");
           return;
         }
 
-        // Gabungkan nilai baru
+        // Cek nilai baru SEBELUM diset
         let newValue = current + val;
+        let numeric = parseInt(newValue);
 
-        // Cegah lebih dari 10 juta
-        if (parseInt(newValue) > 10000000) {
+        // CEGAH > 10.000.000
+        if (numeric > 10000000) {
           showPopup("Nominal tidak boleh lebih dari 10.000.000.");
           genBtn.disabled = true;
           return;
         }
 
+        // Kalau aman → update
         amountInput.value = newValue;
         genBtn.disabled = false;
       }
