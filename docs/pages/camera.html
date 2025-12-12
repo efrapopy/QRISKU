@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>QRISKU — Kamera</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg">
+  <main class="container">
+    <div class="header-card">
+    <h2 class="brand fade-element">Scan lewat Kamera</h2>
+    <small class="muted fade-element">Arahkan kamera ke QRIS statis</small>
+</div>
+<div id="popup" class="popup hidden">
+  <div class="popup-card">
+    <p id="popupMessage"></p>
+    <button id="popupClose" class="btn btn-yellow">OK</button>
+  </div>
+</div>
+
+
+    <section class="card camera-card">
+      <div id="cameraBox" class="camera-box">
+        <video id="cameraPreview" autoplay playsinline></video>
+      </div>
+
+      <div class="row gap">
+        <button id="startBtn" class="btn btn-yellow">Aktifkan Kamera</button>
+        <button id="stopBtn" class="btn btn-outline">Matikan Kamera</button>
+      </div>
+
+      <p id="status" class="muted small">Status: belum aktif</p>
+    </section>
+
+<footer class="card small" onclick="location.href='index.html'">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+    <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+</footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jsqr"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/camera.js"></script>
+  <script src="../js/popup.js"></script> 
+  <script src="../js/fade.js"></script>
+</body>
+</html>

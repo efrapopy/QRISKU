@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>QRISKU — Generate</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg">
+  <main class="container">
+
+    <div id="popup" class="popup hidden">
+  <div class="popup-card">
+    <p id="popupMessage"></p>
+    <button id="popupClose" class="btn btn-yellow">OK</button>
+  </div>
+</div>
+
+
+    <div class="header-plain">
+        <h2 class="brand">Generate QR</h2>
+
+        <div class="raw-box">
+            <div class="label">Kode :</div>
+            <div id="rawPreview" class="payload">-</div>
+        </div>
+    </div>
+
+    <section class="card">
+      <label class="label">Nominal (Rp)</label>
+      <input id="amount" type="text" placeholder="Contoh: 20000" />
+
+      <div class="keypad">
+        <button data-val="1">1</button>
+        <button data-val="2">2</button>
+        <button data-val="3">3</button>
+
+        <button data-val="4">4</button>
+        <button data-val="5">5</button>
+        <button data-val="6">6</button>
+
+        <button data-val="7">7</button>
+        <button data-val="8">8</button>
+        <button data-val="9">9</button>
+
+        <button class="clear" data-action="clear">C</button>
+        <button data-val="0">0</button>
+        <button class="del" data-action="del">⌫</button>
+      </div>
+
+      <div class="row gap" style="margin-top:12px;">
+        <button id="genBtn" class="btn btn-yellow">Generate</button>
+        <button id="clearLocalBtn" class="btn btn-outline">Reset</button>
+      </div>
+    </section>
+
+    <section id="result" class="card hidden">
+      <h3>Hasil QR</h3>
+      <canvas id="canvasPreview" width="300" height="360"></canvas>
+
+      <button id="downloadBtn" class="btn btn-yellow" style="margin-top:16px;">
+        Download
+      </button>
+    </section>
+
+    <footer class="card small" onclick="location.href='index.html'">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </footer>
+
+  </main>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/process.js"></script>
+   <script src="../js/popup.js"></script>
+    <script src="../js/fade.js"></script>
+</body>
+</html>

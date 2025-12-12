@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>QRISKU — Upload</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg">
+  <main class="container">
+    <div class="header-card">
+    <h2 class="brand">Upload Gambar QRIS</h2>
+    <small class="muted">Pilih file PNG/JPG berisi QRIS</small>
+</div>
+
+<div id="popup" class="popup hidden">
+  <div class="popup-card">
+    <p id="popupMessage"></p>
+    <button id="popupClose" class="btn btn-yellow">OK</button>
+  </div>
+</div>
+
+    <section class="card">
+      <input id="fileInput" type="file" accept="image/*" />
+           <div class="row gap">
+        <button id="decodeBtn" class="btn btn-yellow">Decode</button>
+        <button id="clearBtn" class="btn btn-outline">Bersihkan</button>
+      </div>
+    </section>
+
+<footer class="card small" onclick="location.href='index.html'">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+    <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+</footer>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jsqr"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/upload.js"></script>
+   <script src="../js/popup.js"></script>
+   <script src="js\fade.js"></script>
+</body>
+</html>
