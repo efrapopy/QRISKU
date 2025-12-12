@@ -108,12 +108,12 @@ downloadBtn.addEventListener("click", () => {
   link.click();  // Automatically click the download link
 });
 
-
 // =========================
 // DRAW QR TO CANVAS
 // =========================
-async function drawQR(url) {
-  // Selalu set canvas jadi square
+
+  async function drawQR(url) {
+  // Set canvas size
   canvasPreview.width = 400;
   canvasPreview.height = 460;
 
@@ -128,27 +128,32 @@ async function drawQR(url) {
   return new Promise(resolve => {
     img.onload = () => {
 
-      // QR square — tidak akan gepeng
+      // QR square — turun sedikit biar label muat
       const qrSize = 340;
       const x = (canvasPreview.width - qrSize) / 2;
 
-      ctx.drawImage(img, x, 60, qrSize, qrSize);
+      ctx.drawImage(img, x, 80, qrSize, qrSize); // dari 60 → 80
 
-      // Label amount
+      // =======================
+      // LABEL AMOUNT (KEMBALI!)
+      // =======================
+
+      const rectW = 280;  // lebih lebar
+      const rectH = 48;   // lebih tinggi
+      const rectX = (canvasPreview.width - rectW) / 2;
+      const rectY = 20;   // dari 10 → 20 supaya tidak kepotong
+
+      roundRect(ctx, rectX, rectY, rectW, rectH, 12, true, false, "#ffd400");
+
       ctx.fillStyle = "#111";
-      ctx.font = "700 20px Inter, sans-serif";
+      ctx.font = "700 22px Inter, sans-serif";
       ctx.textAlign = "center";
 
-      // Yellow box
-      const rectW = 260;
-      const rectH = 40;
-      const rectX = (canvasPreview.width - rectW) / 2;
-      const rectY = 10;
-
-      roundRect(ctx, rectX, rectY, rectW, rectH, 10, true, false, "#ffd400");
-
-      ctx.fillStyle = "#111";
-      ctx.fillText("Rp " + finalAmount.toLocaleString("id-ID"), canvasPreview.width / 2, 38);
+      ctx.fillText(
+        "Rp " + finalAmount.toLocaleString("id-ID"),
+        canvasPreview.width / 2,
+        rectY + 32
+      );
 
       canvasImageURL = canvasPreview.toDataURL("image/png");
 
@@ -262,4 +267,3 @@ amountInput.addEventListener("input", () => {
     genBtn.disabled = false;
   }
 });
-
