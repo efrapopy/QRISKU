@@ -94,8 +94,8 @@ downloadBtn.addEventListener("click", () => {
   const highResCtx = highResCanvas.getContext("2d");
 
   // Set high resolution (e.g., 1000x1000)
-  highResCanvas.width = 1000;
-  highResCanvas.height = 1000;
+  highResCanvas.width = 400;
+  highResCanvas.height = 460;
 
   // Draw the QR code to the high-resolution canvas
   highResCtx.drawImage(canvasPreview, 0, 0, highResCanvas.width, highResCanvas.height);
@@ -262,3 +262,4 @@ amountInput.addEventListener("input", () => {
     genBtn.disabled = false;
   }
 });
+
